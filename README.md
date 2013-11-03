@@ -1,4 +1,4 @@
-# [Nómada]
+# Nómada
 
 Nómada is a virtual window to home for those away: a digital multimedia experience of your hometown.
 

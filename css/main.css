@@ -133,7 +133,8 @@ textarea {
     border: 4px solid white;
     padding:0.15em;
     color: white;
-    width: 3em;
+    display: inline-block;
+    padding-right: 1em;
 }
 
 .post {
