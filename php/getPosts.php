@@ -60,7 +60,7 @@
                 array_push($mediaList, $mediaItem);
             }
         }
-        $result = "{items:";
+        $result = '{"items":';
 
 
         foreach ($mediaList as $post){
@@ -88,7 +88,6 @@
                 return "<div> emtpy </div>";
 
             $keyWord = $_POST["keyWord"];
-
             return loadPosts( $keyWord );
         }
         return "<div> invalid request</div>";

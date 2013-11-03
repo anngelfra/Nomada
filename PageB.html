@@ -24,23 +24,6 @@
 <![endif]-->
 
 
-<script>
-
-    $(document).ready(function(){
-        $( "#contact" ).submit(function( event ) {
-            event.preventDefault();
-            var sName = "chinautla";
-            $.post("getPosts.php",{
-                        keyWord:sName
-                    },
-                    function(data,status){
-                        $("#contactResult").html(data);
-                    });
-
-        });
-    });
-</script>
-
 <form id="contact" name="contact" method="post">
 
     <div id="contactResult">
