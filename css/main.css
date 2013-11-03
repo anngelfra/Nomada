@@ -94,12 +94,12 @@ textarea {
     color: #000;
     padding: 0.2em 0;
 }
-.shadow, #menubar, #home {
-    box-shadow: 0px 10px 30px -5px #888888; }
+.shadow, #menubar, #home, .post {
+    box-shadow: 10px 10px 20px 0px #888888; }
 
 #menubar {
     width: 100%;
-    height: 7.875%;
+    height: 5.75%;
     position: absolute;
     background-color: white; }
 #home {
@@ -112,7 +112,7 @@ textarea {
 
 .feed-container {
     height: 95%;
-    width: 43.5%;
+    width: 43.75%;
     padding-top: 5em;
     padding-left: 3%;
     padding-right: 3%;
@@ -139,14 +139,16 @@ textarea {
 
 .post {
     height: 70%;
-    width: 47%;
+    width: 43%;
     background-color: #e6e6e6;
     border: none;
     float: left;
     margin: 1%;
+    padding: 1em;
 }
 .post p {
     padding: 0.5em;
+    font-size: 11px;
 }
 .post img {
     position: relative;
