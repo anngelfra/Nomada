@@ -15,7 +15,7 @@ $(document).ready(function(){
 });
 
 function addPosts(data){
-    var obj = $.parseJSON(data);
+    var obj = JSON.parse(data);
     alert(obj.length);
     $("#contactResult").html(data);
     var template = '<div class="post">';

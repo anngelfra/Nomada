@@ -51,7 +51,7 @@
     function loadPosts($keyWord){
         $community = loadCommunity($keyWord);
 
-
+`
         $mediaList = array();
         foreach ($community->contentSourceList as $contentSource){
 
@@ -60,7 +60,7 @@
                 array_push($mediaList, $mediaItem);
             }
         }
-        $result = '{"items":';
+        $result = '{"items:';
 
 
         foreach ($mediaList as $post){
