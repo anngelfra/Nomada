@@ -1,4 +1,7 @@
 <?php
+    class responseMedia{
+        public $items;
+    }
 
 	class sourceKind{
 		const none = 0;

@@ -51,7 +51,7 @@
     function loadPosts($keyWord){
         $community = loadCommunity($keyWord);
 
-`
+
         $mediaList = array();
         foreach ($community->contentSourceList as $contentSource){
 
@@ -60,22 +60,11 @@
                 array_push($mediaList, $mediaItem);
             }
         }
-        $result = '{"items:';
 
+        $objectResult = new responseMedia();
+        $objectResult->items = $mediaList;
 
-        foreach ($mediaList as $post){
-            $result .= json_encode($post);
-            /*
-             * //to build div:
-             * $temp = "<div>";
-             * $temp .=  $post->url;
-             * $temp .= "</div>";
-             * //concatenar y devolver resultados
-             */
-        }
-
-        $result .= "}";
-        return $result;
+        return json_encode($objectResult);;
     }
 
     /*
@@ -84,10 +73,10 @@
     */
     function getPosts(){
         if ($_SERVER["REQUEST_METHOD"] == "POST"){
-            if (!isset($_POST["keyWord"]))
-                return "<div> emtpy </div>";
+            if (!isset($_POST["keyWord"])) return "<div> emtpy </div>";
 
             $keyWord = $_POST["keyWord"];
+
             return loadPosts( $keyWord );
         }
         return "<div> invalid request</div>";
