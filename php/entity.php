@@ -42,10 +42,6 @@
         }
 
         public function retrieveMedia(){
-            $tempMedia = new media();
-            $tempMedia->title = "my title";
-            $tempMedia->url = "http://www.youtube.com/watch?v=jQ0P9ls_ZcE";
-
 
             require_once 'API/google-api-php-client/src/Google_Client.php';
             require_once 'API/google-api-php-client/src/contrib/Google_YouTubeService.php';
@@ -90,7 +86,8 @@
                     );
                     $tempMedia = new media();
                     $tempMedia->title = $playlistItem['snippet']['title'];
-                    $tempMedia->url = "http://www.youtube.com/watch?v=".$playlistItem['snippet']['resourceId']['videoId'];
+                    $tempMedia->kind = $this->kind;
+                    $tempMedia->url = "www.youtube.com/embed/".$playlistItem['snippet']['resourceId']['videoId'];
                     array_push($mediaList,$tempMedia);
                 }
 
@@ -105,7 +102,18 @@
         }
 
         public function retrieveMedia(){
-            $facebookUrl = "https://graph.facebook.com/municipalidadpatzun?fields=albums.limit(5).fields(name,%20photos.limit(5).fields(name,%20picture))";
+            $facebookUrl = "https://graph.facebook.com/".$this->user."?fields=albums.limit(5).fields(name,%20photos.limit(5).fields(name,%20picture))";
+
+            //$response = http_get("http://www.example.com/");
+
+            echo $facebookUrl;
+
+            $tempMedia = new media();
+            $tempMedia->title = "fake fb";
+            $tempMedia->kind = $this->kind;
+            $tempMedia->url = "www.somepost.com";
+
+            return $tempMedia;
         }
     }
 	class community{

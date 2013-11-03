@@ -9,6 +9,12 @@
         $source1->user = "MuniPatzun";
         $source1->kind = sourceKind::youtube;
 
+        $source2 = new facebookContentSource();
+        $source2->name = "Patzun fan page";
+        $source2->url = "municipalidadpatzun";
+        $source2->user = "municipalidadpatzun";
+        $source2->kind = sourceKind::facebook;
+
         $contentSourceList = array(1 => $source1);
         return $contentSourceList;
     }
@@ -51,11 +57,12 @@
     function loadPosts($keyWord){
         $community = loadCommunity($keyWord);
 
-
         $mediaList = array();
+
         foreach ($community->contentSourceList as $contentSource){
 
             $mediaResult = $contentSource->retrieveMedia();
+
             foreach($mediaResult as $mediaItem){
                 array_push($mediaList, $mediaItem);
             }
@@ -64,7 +71,7 @@
         $objectResult = new responseMedia();
         $objectResult->items = $mediaList;
 
-        return json_encode($objectResult);;
+        return json_encode($objectResult);
     }
 
     /*
