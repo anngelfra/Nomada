@@ -48,15 +48,15 @@
     }
 
     function loadPosts($keyWord){
-
         $comunity = loadComunity($keyWord);
-        return json_encode( $comunity->contentSourceList  );
         $jsonReslut = "json: ";
 
         $mediaList = array();
         foreach ($comunity->contentSourceList as $contentSource){
-            $jsonReslut .= json_encode( $contentSource );
-            array_push($mediaList, $contentSource->retrieveMedia());
+
+            $mediaResult = $contentSource->retrieveMedia("");
+            $jsonReslut .= json_encode( $mediaResult );
+            //array_push($mediaList, $mediaResult);
 
         }
 
