@@ -96,7 +96,17 @@
             return $mediaList;
         }
 	}
-	class comunity{
+    class facebookContentSource extends contentSourceBase{
+        public $maxResults =10;
+        public function __construct() {
+            $this->kind = sourceKind::facebook;
+        }
+
+        public function retrieveMedia(){
+            $facebookUrl = "https://graph.facebook.com/municipalidadpatzun?fields=albums.limit(5).fields(name,%20photos.limit(5).fields(name,%20picture))";
+        }
+    }
+	class community{
 		public $id;
 		public $name;
 		public $background;
