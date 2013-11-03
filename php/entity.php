@@ -61,8 +61,7 @@
             $maxResults = $this->maxResults;
 
             try {
-                //$parameterList = ;
-                $channelsResponse = $youtube->channels->listChannels('contentDetails', array("forUsername" => "cocacola",));
+                $channelsResponse = $youtube->channels->listChannels('contentDetails', array("forUsername" => $userName,));
 
             } catch (Google_ServiceException $e) {
                 //return "<p>A service error occurred: <code>%s</code></p>".htmlspecialchars($e->getMessage());
@@ -80,7 +79,7 @@
 
                 $playlistItemsResponse = $youtube->playlistItems->listPlaylistItems('snippet', array(
                     'playlistId' => $uploadsListId,
-                    'maxResults' => 50
+                    'maxResults' => $maxResults
                 ));
 
                 foreach ($playlistItemsResponse['items'] as $playlistItem) {
