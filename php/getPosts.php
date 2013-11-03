@@ -5,7 +5,8 @@
     function burnedContentSourceChinautla(){
         $source1 = new youtubeContentSource();
         $source1->name = "chinautla chanel";
-        $source1->url = "cocacola";
+        $source1->url = "MuniPatzun";
+        $source1->user = "MuniPatzun";
         $source1->kind = sourceKind::youtube;
 
         $contentSourceList = array(1 => $source1);
@@ -48,30 +49,22 @@
     }
 
     function loadPosts($keyWord){
-
         $comunity = loadComunity($keyWord);
-        return json_encode( $comunity->contentSourceList  );
         $jsonReslut = "json: ";
 
         $mediaList = array();
         foreach ($comunity->contentSourceList as $contentSource){
-            $jsonReslut .= json_encode( $contentSource );
-            array_push($mediaList, $contentSource->retrieveMedia());
 
+            $mediaResult = $contentSource->retrieveMedia();
+            array_push($mediaList, $mediaResult);
         }
-
-        return $jsonReslut;
-
-        $result = "";
+        $result = "{items:";
         $tempDiv = "";
+        $tempArray = array();
         foreach ($mediaList as $post){
-            $tempDiv = "<div>";
-            $tempDiv .= $post->url;
-            $tempDiv .= $post->title;
-            $tempDiv .= "</div>";
-
-            $result.=$tempDiv;
+            $result .= json_encode($post);
         }
+        $result .= "}";
         return $result;
     }
 

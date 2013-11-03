@@ -28,7 +28,7 @@
 			$this->url = "";
 			$this->kind = sourceKind::none;
 		}
-		public function retrieveMedia($apiObject){
+		public function retrieveMedia(){
 		    return "";
 		}
 	}
@@ -38,15 +38,38 @@
             $this->kind = sourceKind::youtube;
         }
 
-        public function retrieveMedia($apiObject){
-            $youtube = $apiObject;
+        public function retrieveMedia(){
+            $tempMedia = new media();
+            $tempMedia->title = "my title";
+            $tempMedia->url = "http://www.youtube.com/watch?v=jQ0P9ls_ZcE";
+
+
+            require_once 'API/google-api-php-client/src/Google_Client.php';
+            require_once 'API/google-api-php-client/src/contrib/Google_YouTubeService.php';
+
+
+            $DEVELOPER_KEY = 'AIzaSyDCRA3GnWNa8UBUfrkxpSe0BVcVFMwE7ug';
+            $client = new Google_Client();
+            $client->setDeveloperKey($DEVELOPER_KEY);
+
+            $youtube = new Google_YoutubeService($client);
+
             $userName = $this->user;
             $maxResults = $this->maxResults;
-            $parameterList = array('forUsername' => $userName,);
-            $channelsResponse = $youtube->channels->listChannels('contentDetails', $parameterList);
+
+            try {
+                //$parameterList = ;
+                $channelsResponse = $youtube->channels->listChannels('contentDetails', array("forUsername" => "cocacola",));
+
+            } catch (Google_ServiceException $e) {
+                //return "<p>A service error occurred: <code>%s</code></p>".htmlspecialchars($e->getMessage());
+                return "<div></div>";
+            } catch (Google_Exception $e) {
+                //return "<p>An client error occurred: <code>%s</code></p>".htmlspecialchars($e->getMessage());
+                return "<div></div>";
+            }
 
             $mediaList = array();
-
             $result = '';
 
             foreach ($channelsResponse['items'] as $channel) {
@@ -57,9 +80,8 @@
                     'maxResults' => 50
                 ));
 
-                $result .= "<h3>Videos in list $uploadsListId</h3><ul>";
                 foreach ($playlistItemsResponse['items'] as $playlistItem) {
-                    $result .= sprintf('<li>%s (%s)-(%s)</li>',
+                    $result .= sprintf('<div>%s (%s)-(%s)</div>',
                         $playlistItem['snippet']['title'],
                         $playlistItem['snippet']['resourceId']['videoId'],
                         $playlistItem['snippet']['resourceId']['kind']
@@ -69,7 +91,6 @@
                     $tempMedia->url = "http://www.youtube.com/watch?v=".$playlistItem['snippet']['resourceId']['videoId'];
                     array_push($mediaList,$tempMedia);
                 }
-                $result .= '</ul>';
 
             }
             return $mediaList;
