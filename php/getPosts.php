@@ -69,22 +69,9 @@
         }
         $response = new mediaResponse();
         $response->items = $mediaList;
+
         $result = json_encode($response);
-/*
-        $result = "{items:";
-        foreach ($mediaList as $post){
-            $result .= json_encode($post);
 
-            //to build div:
-            $temp = "<div>";
-            $temp .=  $post->url;
-            $temp .= "</div>";
-            //concatenar y devolver resultados
-
-        }
-
-        $result .= "}";
-*/
         return $result;
     }
 
