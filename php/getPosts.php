@@ -4,12 +4,16 @@
 
     function burnedContentSourceChinautla(){
         $source1 = new youtubeContentSource();
-        $source1->name = "MuniPatzun chanel";
+        $source1->name = "MuniPatzun channel";
         $source1->url = "MuniPatzun";
         $source1->user = "MuniPatzun";
-        $source1->kind = sourceKind::youtube;
 
+        $source2 = new facebookContentSource();
+        $source2->name = "fan page patzun";
+        $source2->user = "municipalidadpatzun";
+        //1 => $source1,
         $contentSourceList = array(1 => $source1);
+        //$contentSourceList = array(2 => $source2);
         return $contentSourceList;
     }
 
@@ -56,25 +60,31 @@
         foreach ($community->contentSourceList as $contentSource){
 
             $mediaResult = $contentSource->retrieveMedia();
+
+            //return $mediaResult;
+
             foreach($mediaResult as $mediaItem){
                 array_push($mediaList, $mediaItem);
             }
         }
+        $response = new mediaResponse();
+        $response->items = $mediaList;
+        $result = json_encode($response);
+/*
         $result = "{items:";
-
-
         foreach ($mediaList as $post){
             $result .= json_encode($post);
-            /*
-             * //to build div:
-             * $temp = "<div>";
-             * $temp .=  $post->url;
-             * $temp .= "</div>";
-             * //concatenar y devolver resultados
-             */
+
+            //to build div:
+            $temp = "<div>";
+            $temp .=  $post->url;
+            $temp .= "</div>";
+            //concatenar y devolver resultados
+
         }
 
         $result .= "}";
+*/
         return $result;
     }
 

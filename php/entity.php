@@ -1,5 +1,7 @@
 <?php
-
+    class mediaResponse{
+        public $items;
+    }
 	class sourceKind{
 		const none = 0;
 		const youtube = 1;
@@ -59,7 +61,7 @@
 
             try {
                 //$parameterList = ;
-                $channelsResponse = $youtube->channels->listChannels('contentDetails', array("forUsername" => "cocacola",));
+                $channelsResponse = $youtube->channels->listChannels('contentDetails', array("forUsername" => $userName,));
 
             } catch (Google_ServiceException $e) {
                 //return "<p>A service error occurred: <code>%s</code></p>".htmlspecialchars($e->getMessage());
@@ -77,7 +79,7 @@
 
                 $playlistItemsResponse = $youtube->playlistItems->listPlaylistItems('snippet', array(
                     'playlistId' => $uploadsListId,
-                    'maxResults' => 50
+                    'maxResults' => $maxResults
                 ));
 
                 foreach ($playlistItemsResponse['items'] as $playlistItem) {
@@ -103,7 +105,17 @@
         }
 
         public function retrieveMedia(){
-            $facebookUrl = "https://graph.facebook.com/municipalidadpatzun?fields=albums.limit(5).fields(name,%20photos.limit(5).fields(name,%20picture))";
+            $user = $this->user;
+            $facebookUrl = "https://graph.facebook.com/".$user."?fields=albums.limit(5).fields(name,%20photos.limit(5).fields(name,%20picture))";
+            $facebookUrl = "http://www.youtube.com/embed/6FMNFvKEy4c";
+
+            try{
+                $response = http_get($facebookUrl);
+                return json_encode($response);
+            } catch (Exception $e){
+                return "<div>".$e->getMessage()."</div>";
+            }
+            return $response;
         }
     }
 	class community{
