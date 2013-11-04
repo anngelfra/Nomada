@@ -1,7 +1,7 @@
 $(document).ready(function(){
     //$( "#contact" ).submit(function( event ) {
         //event.preventDefault();
-        var sName = "chinautla";
+        var sName = "patzun";
         $.post("php/getPosts.php",{
                 keyWord:sName
             },
@@ -21,23 +21,43 @@ $(document).ready(function(){
                 $("#right-feed").html(content);
             });
 
+    var sName = "los angeles";
+    $.post("php/getPosts.php",{
+            keyWord:sName
+        },
+        function(data){
+            var obj = JSON.parse(data);
+            var content = "";
+            var color = feedColor();
+            for(var i=0; i<obj.items.length; i++){
+                var post = obj.items[i];
+                if (post.kind == 1) {
+                    content += fillYouTubePost(post.title, post.url, color);
+                }
+                if (post.kind == 2){
+                    content += fillFacebookPost(post.title, post.url, color);
+                }
+            }
+            $("#left-feed").html(content);
+        });
+
     //});
 });
 
 function fillYouTubePost(title, URL, color){
-    var width = $("#right-panel").width()*0.43;
+    var width = $("#right-panel").width()*0.85;
     var height = width*0.5625;
-    var template = '<div class="post">';
+    var template = '<div class="post video-post">';
     template += '<iframe width="'+width+'" height="'+height+'" src="//'+URL+'" frameborder="0" allowfullscreen></iframe>';
-    template += '<p style="color:'+ color +'">'+title+'</p>';
+    template += '<p style="text-align: left; color:'+ color +'">'+title+'</p>';
     template += '</div>';
     return template;
 }
 
-function fillFacebookPost(title, URL, color){
-    var template = '<div class="post">';
-    template += '<img src="'+URL+'">';
-    template += '<p style="color:'+ color +'">'+title+'</p>';
+function fillFacebookPost(albumTitle, URL, color){
+    var template = '<div class="post photo-post">';
+    template += '<div style="width: 50%; float: left"><img src="'+URL+'"></div>';
+    template += '<div style="float: left"><p style="color:'+ color +'">'+albumTitle+'</p></div>';
     template += '</div>';
     return template;
 }
