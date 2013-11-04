@@ -180,6 +180,12 @@ textarea {
     height: 50%;
 }
 
+.absolute-center {
+    margin: auto;
+    top: 50%;
+    margin-top: 50%;
+}
+
 
 
 
