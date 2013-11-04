@@ -1,8 +1,32 @@
 $(document).ready(function(){
     //$( "#contact" ).submit(function( event ) {
         //event.preventDefault();
+        var opts = {
+            lines: 8, // The number of lines to draw
+            length: 6, // The length of each line
+            width: 7, // The line thickness
+            radius: 8, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 0, // The rotation offset
+            direction: 1, // 1: clockwise, -1: counterclockwise
+            color: '#000', // #rgb or #rrggbb or array of colors
+            speed: 1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: '0px', // Top position relative to parent in px
+            left: '0px' // Left position relative to parent in px
+        };
+        var target = document.getElementById('loadingDiv');
+        var spinner = new Spinner(opts).spin(target);
+
+
+
+        $("#loadingDiv").show();
         var sName = "patzun";
-        $.post("php/getPosts.php",{
+        var jqxhr = $.post("php/getPosts.php",{
                 keyWord:sName
             },
             function(data){
@@ -19,6 +43,8 @@ $(document).ready(function(){
                     }
                 }
                 $("#right-feed").html(content);
+            }).always(function() {
+                $("#loadingDiv").hide();
             });
 
     var sName = "los angeles";
