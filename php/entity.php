@@ -89,6 +89,7 @@
                     );
                     $tempMedia = new media();
                     $tempMedia->title = $playlistItem['snippet']['title'];
+                    $tempMedia->albumTitle = "";
                     $tempMedia->kind = $this->kind;
                     $tempMedia->url = "www.youtube.com/embed/".$playlistItem['snippet']['resourceId']['videoId'];
                     $tempMedia->date = date('y/m/d', strtotime($playlistItem['snippet']['publishedAt']));
