@@ -15,7 +15,7 @@ $(document).ready(function(){
                         content += fillYouTubePost(post.title, post.url, color);
                     }
                     if (post.kind == 2){
-                        content += fillFacebookPost(post.title, post.url, color);
+                        content += fillFacebookPost(post.albumTitle, post.url, color);
                     }
                 }
                 $("#right-feed").html(content);
@@ -49,7 +49,7 @@ function fillYouTubePost(title, URL, color){
     var height = width*0.5625;
     var template = '<div class="post video-post">';
     template += '<iframe width="'+width+'" height="'+height+'" src="//'+URL+'" frameborder="0" allowfullscreen></iframe>';
-    template += '<p style="text-align: left; color:'+ color +'">'+title+'</p>';
+    template += '<p style="padding-left: 2em; text-align: left; color:'+ color +'">'+title+'</p>';
     template += '</div>';
     return template;
 }
