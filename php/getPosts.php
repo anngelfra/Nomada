@@ -32,10 +32,10 @@
 
     function burnedCommunity($keyWord){
         $community = new community();
-        switch ($keyWord){
-            case "chinautla":
+        switch (strtolower($keyWord)){
+            case "patzun":
                 $community->id = 1;
-                $community->name = "chinautla";
+                $community->name = "Patzun";
                 $community->background = "default.png";
                 $community->contentSourceList = burnedContentSourceChinautla();
                 break;
@@ -54,7 +54,7 @@
             case "los angeles":
                 //http://www.youtube.com/user/LatinosForHire
                 $community->id = 4;
-                $community->name = "Los angeles";
+                $community->name = "Los Angeles";
                 $community->background = "default.png";
                 $community->contentSourceList = burnedContentSourceLosAngeles();
                 break;
@@ -72,7 +72,7 @@
         return $community;
     }
 
-    function loadPosts($keyWord){
+    function loadPosts($keyWord, $random){
         $community = loadCommunity($keyWord);
 
         $mediaList = array();
@@ -86,9 +86,10 @@
             }
         }
 
+        if ($random == 1) shuffle($mediaList);
+
         $objectResult = new responseMedia();
         $objectResult->items = $mediaList;
-
         return json_encode($objectResult);
     }
 
@@ -98,11 +99,13 @@
     */
     function getPosts(){
         if ($_SERVER["REQUEST_METHOD"] == "POST"){
-            if (!isset($_POST["keyWord"])) return "<div> emtpy </div>";
+            $keyWord = "Patzun";
+            $random = 1;
 
-            $keyWord = $_POST["keyWord"];
+            if (isset($_POST["keyWord"])) $keyWord = $_POST["keyWord"];
+            if (isset($_POST["isRandom"])) $random = $_POST["isRandom"];
 
-            return loadPosts( $keyWord );
+            return loadPosts( $keyWord, $random );
         }
         return "<div> invalid request</div>";
     }

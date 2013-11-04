@@ -118,8 +118,6 @@
             $mediaList = array();
 
             foreach ($fbResponse->albums->data as $album){
-                //echo ">>>>>>".json_encode($album)."<<<<<<<";
-
                 foreach($album->photos->data as $postObject){
                     $tempMedia = new media();
                     $tempMedia->albumTitle = $album->name;
