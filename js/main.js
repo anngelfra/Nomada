@@ -56,7 +56,7 @@ function fillYouTubePost(title, URL, color){
 
 function fillFacebookPost(albumTitle, URL, color){
     var template = '<div class="post photo-post">';
-    template += '<div style="width: 50%; float: left"><img src="'+URL+'"></div>';
+    template += '<div style="width: 90%; float: left"><a href="'+URL+'"><img src="'+URL+'"></a></div>';
     template += '<div style="float: left"><p style="color:'+ color +'">'+albumTitle+'</p></div>';
     template += '</div>';
     return template;
