@@ -104,16 +104,12 @@
         public function retrieveMedia(){
             $facebookUrl = "https://graph.facebook.com/".$this->user."?fields=albums.limit(5).fields(name,%20photos.limit(5).fields(name,%20picture))";
 
-            //$response = http_get("http://www.example.com/");
-
-            echo $facebookUrl;
-
-            $tempMedia = new media();
-            $tempMedia->title = "fake fb";
-            $tempMedia->kind = $this->kind;
-            $tempMedia->url = "www.somepost.com";
-
-            return $tempMedia;
+            try {
+                $page = file_get_contents($facebookUrl);
+            } catch (Exception $e) {
+                return "<div>".$e->getMessage()."</div>";
+            }
+            return json_decode($page);
         }
     }
 	class community{

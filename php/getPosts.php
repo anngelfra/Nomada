@@ -15,6 +15,17 @@
         $source2->user = "municipalidadpatzun";
         $source2->kind = sourceKind::facebook;
 
+        $contentSourceList = array(1 => $source2, );
+        return $contentSourceList;
+    }
+
+    function burnedContentSourceLosAngeles(){
+        $source1 = new youtubeContentSource();
+        $source1->name = "los angeles";
+        $source1->url = "LatinosForHire";
+        $source1->user = "LatinosForHire";
+        $source1->kind = sourceKind::youtube;
+
         $contentSourceList = array(1 => $source1);
         return $contentSourceList;
     }
@@ -40,6 +51,13 @@
                 $community->background = "";
                 $community->contentSourceList = array();
                 break;
+            case "los angeles":
+                //http://www.youtube.com/user/LatinosForHire
+                $community->id = 4;
+                $community->name = "Los angeles";
+                $community->background = "default.png";
+                $community->contentSourceList = burnedContentSourceLosAngeles();
+                break;
             default:
             break;
         }
@@ -48,7 +66,7 @@
     }
     function loadCommunity($communityName){
         //-_- query to database for comunities with that name
-        $community = burnedCommunity("chinautla");
+        $community = burnedCommunity($communityName);
 
 
         return $community;
