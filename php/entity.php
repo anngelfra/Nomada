@@ -12,10 +12,13 @@
         public $url;
         public $title;
         public $kind;
+        public $albumTitle;
+        public $date;
         public function __construct() {
             $this->url = "";
             $this->kind = sourceKind::none;
             $this->title = "";
+            $this->albumTitle = "";
         }
         public function __toString(){
             return '<iframe width="560" height="315" src="'.$this->url.'" frameborder="0" allowfullscreen></iframe>';
@@ -88,6 +91,7 @@
                     $tempMedia->title = $playlistItem['snippet']['title'];
                     $tempMedia->kind = $this->kind;
                     $tempMedia->url = "www.youtube.com/embed/".$playlistItem['snippet']['resourceId']['videoId'];
+                    $tempMedia->date = date('y/m/d', strtotime($playlistItem['snippet']['publishedAt']));
                     array_push($mediaList,$tempMedia);
                 }
 
@@ -109,7 +113,25 @@
             } catch (Exception $e) {
                 return "<div>".$e->getMessage()."</div>";
             }
-            return json_decode($page);
+            $fbResponse =json_decode($page);
+
+            $mediaList = array();
+
+            foreach ($fbResponse->albums->data as $album){
+                //echo ">>>>>>".json_encode($album)."<<<<<<<";
+
+                foreach($album->photos->data as $postObject){
+                    $tempMedia = new media();
+                    $tempMedia->albumTitle = $album->name;
+                    $tempMedia->kind = $this->kind;
+                    $tempMedia->title = "fake fb";
+                    $tempMedia->url = $postObject->picture;
+                    $tempMedia->date = date('y/m/d', strtotime($postObject->created_time));
+                    array_push($mediaList, $tempMedia);
+                }
+            }
+
+            return $mediaList;
         }
     }
 	class community{
