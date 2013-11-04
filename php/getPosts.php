@@ -15,7 +15,8 @@
         $source2->user = "municipalidadpatzun";
         $source2->kind = sourceKind::facebook;
 
-        $contentSourceList = array(1 => $source1, 2 => $source2,);
+        //$contentSourceList = array(1 => $source1, 2 => $source2,);
+        $contentSourceList = array(2 => $source2,);
         return $contentSourceList;
     }
 
@@ -73,6 +74,7 @@
     }
 
     function loadPosts($keyWord, $random){
+
         $community = loadCommunity($keyWord);
 
         $mediaList = array();

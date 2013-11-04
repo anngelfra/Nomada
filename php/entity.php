@@ -106,7 +106,7 @@
         }
 
         public function retrieveMedia(){
-            $facebookUrl = "https://graph.facebook.com/".$this->user."?fields=albums.limit(5).fields(name,%20photos.limit(5).fields(name,%20picture))";
+            $facebookUrl = "https://graph.facebook.com/".$this->user."?fields=albums.limit(5).fields(name,photos.limit(3).fields(name,source))";
 
             try {
                 $page = file_get_contents($facebookUrl);
@@ -122,13 +122,12 @@
                     $tempMedia = new media();
                     $tempMedia->albumTitle = $album->name;
                     $tempMedia->kind = $this->kind;
-                    $tempMedia->title = "fake fb";
-                    $tempMedia->url = $postObject->picture;
+                    $tempMedia->title = "";
+                    $tempMedia->url = $postObject->source;
                     $tempMedia->date = date('y/m/d', strtotime($postObject->created_time));
                     array_push($mediaList, $tempMedia);
                 }
             }
-
             return $mediaList;
         }
     }
